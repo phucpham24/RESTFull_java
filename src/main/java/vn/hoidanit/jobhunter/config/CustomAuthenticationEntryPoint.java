@@ -41,7 +41,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
                 .map(Throwable::getMessage)
                 .orElse(authException.getMessage());
         res.setError(errorMessage);
-        res.setMessage("Token invalided, expired, malform or wrong");
+        res.setMessage("Token invalided, expired, malform or not in the header");
         mapper.writeValue(response.getWriter(), res);
     }
 }
