@@ -38,6 +38,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private GenderEnum gender;
     private String address;
+    @Column(columnDefinition = "MIDEUMTEXT")
     private String refreshToken;
     @Column(name = "created_at")
     private Instant createdAt;
