@@ -57,4 +57,8 @@ public class CompanyService {
         return null;
     }
 
+    public Optional<Company> findCompanyById(long id) {
+        return this.companyRepository.findById(id);
+    }
+
 }
