@@ -47,7 +47,7 @@ public class UserController {
 
         String hashPassword = this.passwordEncoder.encode(postmanUser.getPassword());
         postmanUser.setPassword(hashPassword);
-        User user = this.userService.handleSaveUser(postmanUser);
+        User user = this.userService.handleCreateUser(postmanUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.convertUserToUserDTO(user));
 
     }
