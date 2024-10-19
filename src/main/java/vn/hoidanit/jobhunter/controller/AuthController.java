@@ -8,6 +8,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +23,9 @@ import vn.hoidanit.jobhunter.domain.dto.ResLoginDTO;
 import vn.hoidanit.jobhunter.service.UserService;
 import vn.hoidanit.jobhunter.util.SecurityUtil;
 import vn.hoidanit.jobhunter.util.annotation.ApiMessage;
+import vn.hoidanit.jobhunter.util.error.IdInvalidException;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -50,6 +55,7 @@ public class AuthController {
         // xác thực người dùng => cần viết hàm loadUserByUsername
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
+        // set userDetail into context for further use
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         ResLoginDTO res = new ResLoginDTO();
@@ -60,7 +66,7 @@ public class AuthController {
             res.setUserLogin(userLogin);
         }
         // create a token
-        String access_token = this.securityUtil.createAccessToken(authentication, res.getUserLogin());
+        String access_token = this.securityUtil.createAccessToken(authentication.getName(), res.getUserLogin());
 
         res.setAccessToken(access_token);
 
@@ -96,6 +102,59 @@ public class AuthController {
             userLogin.setName(currentUserDB.getName());
         }
         return ResponseEntity.ok().body(userLogin);
+    }
+
+    @GetMapping("/auth/refresh")
+    @ApiMessage("Get User by refresh token")
+    public ResponseEntity<ResLoginDTO> getRefreshToken(
+            @CookieValue(name = "refresh_token", defaultValue = "abc") String refresh_token)
+            throws IdInvalidException {
+
+        if (refresh_token.equals("abc")) {
+            throw new IdInvalidException("not having refresh token in cookies");
+        }
+        // check valid
+        Jwt decodedToken = this.securityUtil.checkValidRefreshToken(refresh_token);
+        String email = decodedToken.getSubject();
+
+        // check user by token + email
+        User currentUser = this.userService.getUserByRefreshUserAndEmail(refresh_token, email);
+
+        if (currentUser == null) {
+            throw new IdInvalidException("refresh token is not valid");
+        }
+        ResLoginDTO res = new ResLoginDTO();
+        User currentUserDB = this.userService.handleFindUserByUsername(email);
+        if (currentUserDB != null) {
+            ResLoginDTO.UserLogin userLogin = new ResLoginDTO.UserLogin(currentUserDB.getId(), currentUserDB.getEmail(),
+                    currentUserDB.getName());
+            res.setUserLogin(userLogin);
+        }
+        // create a token
+        String access_token = this.securityUtil.createAccessToken(email, res.getUserLogin());
+
+        res.setAccessToken(access_token);
+
+        // create refresh token
+        String new_refreshToken = this.securityUtil.createRefreshToken(email, res);
+
+        // update user
+        this.userService.updateUserToken(new_refreshToken, email);
+
+        // set cokkies
+        ResponseCookie responseCookie = ResponseCookie
+                .from("refresh_token",
+                        new_refreshToken)
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(refreshTokenExpiration)
+                // .domain("example.com")
+                .build();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
+                .body(res);
+
     }
 
 }
