@@ -1,5 +1,7 @@
 package vn.hoidanit.jobhunter.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -24,8 +26,6 @@ import vn.hoidanit.jobhunter.service.UserService;
 import vn.hoidanit.jobhunter.util.SecurityUtil;
 import vn.hoidanit.jobhunter.util.annotation.ApiMessage;
 import vn.hoidanit.jobhunter.util.error.IdInvalidException;
-
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -92,16 +92,19 @@ public class AuthController {
 
     @GetMapping("/auth/account")
     @ApiMessage("fetch account")
-    public ResponseEntity<ResLoginDTO.UserLogin> getAccount() {
+    public ResponseEntity<ResLoginDTO.UserGetAccount> getAccount() {
         String email = SecurityUtil.getCurrentUserLogin().isPresent() ? SecurityUtil.getCurrentUserLogin().get() : "";
         User currentUserDB = this.userService.handleFindUserByUsername(email);
         ResLoginDTO.UserLogin userLogin = new ResLoginDTO.UserLogin();
+        ResLoginDTO.UserGetAccount userGetAccount = new ResLoginDTO.UserGetAccount();
+
         if (currentUserDB != null) {
             userLogin.setId(currentUserDB.getId());
             userLogin.setEmail(currentUserDB.getEmail());
             userLogin.setName(currentUserDB.getName());
+            userGetAccount.setUser(userLogin);
         }
-        return ResponseEntity.ok().body(userLogin);
+        return ResponseEntity.ok().body(userGetAccount);
     }
 
     @GetMapping("/auth/refresh")
@@ -155,6 +158,33 @@ public class AuthController {
                 .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
                 .body(res);
 
+    }
+
+    @PostMapping("/auth/logout")
+    @ApiMessage("Logout User")
+    public ResponseEntity<Void> logoutUser() throws IdInvalidException {
+        // TODO: process POST request
+        String email = SecurityUtil.getCurrentUserLogin().isPresent() ? SecurityUtil.getCurrentUserLogin().get() : "";
+
+        if (email.equals(null)) {
+            throw new IdInvalidException("Access Token is in valid");
+        }
+        // update user refresh_token
+        this.userService.updateUserToken(null, email);
+
+        // set cookies
+        ResponseCookie deletedCookie = ResponseCookie
+                .from("refresh_token",
+                        null)
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(0)
+                // .domain("example.com")
+                .build();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, deletedCookie.toString())
+                .body(null);
     }
 
 }
