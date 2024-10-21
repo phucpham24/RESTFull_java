@@ -19,11 +19,13 @@ import jakarta.validation.Valid;
 import vn.hoidanit.jobhunter.domain.Company;
 import vn.hoidanit.jobhunter.domain.response.ResultPaginationDTO;
 import vn.hoidanit.jobhunter.service.CompanyService;
+import vn.hoidanit.jobhunter.util.annotation.ApiMessage;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -57,6 +59,13 @@ public class CompanyController {
     public ResponseEntity<Company> updateCompany(@Valid @RequestBody Company curCompany) {
         Company com = this.companyService.updateCompany(curCompany);
         return ResponseEntity.status(HttpStatus.OK).body(com);
+    }
+
+    @GetMapping("/companies/{id}")
+    @ApiMessage("fetch company by id")
+    public ResponseEntity<Company> fetchACompany(@PathVariable("id") long id) {
+        Optional<Company> companyOp = this.companyService.findCompanyById(id);
+        return ResponseEntity.ok().body(companyOp.get());
     }
 
 }

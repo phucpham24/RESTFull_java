@@ -10,11 +10,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import vn.hoidanit.jobhunter.domain.Company;
 import vn.hoidanit.jobhunter.domain.Job;
 import vn.hoidanit.jobhunter.domain.Skill;
 import vn.hoidanit.jobhunter.domain.response.ResultPaginationDTO;
 import vn.hoidanit.jobhunter.domain.response.job.ResCreateJobDTO;
 import vn.hoidanit.jobhunter.domain.response.job.ResUpdateJobDTO;
+import vn.hoidanit.jobhunter.repository.CompanyRepository;
 import vn.hoidanit.jobhunter.repository.JobRepository;
 import vn.hoidanit.jobhunter.repository.SkillRepository;
 
@@ -22,10 +24,13 @@ import vn.hoidanit.jobhunter.repository.SkillRepository;
 public class JobService {
     private final JobRepository jobRepository;
     private final SkillRepository skillRepository;
+    private final CompanyRepository companyRepository;
 
-    public JobService(JobRepository jobRepository, SkillRepository skillRepository) {
+    public JobService(JobRepository jobRepository, SkillRepository skillRepository,
+            CompanyRepository companyRepository) {
         this.jobRepository = jobRepository;
         this.skillRepository = skillRepository;
+        this.companyRepository = companyRepository;
     }
 
     public ResCreateJobDTO handleCreateJob(Job job) {
@@ -37,6 +42,14 @@ public class JobService {
 
             List<Skill> checkSkills = this.skillRepository.findByIdIn(skills);
             job.setSkills(checkSkills);
+        }
+
+        // check company
+        if (job.getCompany() != null) {
+            Optional<Company> COptional = this.companyRepository.findById(job.getCompany().getId());
+            if (COptional.isPresent()) {
+                job.setCompany(COptional.get());
+            }
         }
         Job currentJob = this.jobRepository.save(job);
 
@@ -81,7 +94,7 @@ public class JobService {
         return rs;
     }
 
-    public ResUpdateJobDTO handleUpdate(Job j) {
+    public ResUpdateJobDTO handleUpdate(Job j, Job jobInDB) {
         // check skills
         if (j.getSkills() != null) {
             List<Long> reqSkills = j.getSkills()
@@ -89,9 +102,25 @@ public class JobService {
                     .collect(Collectors.toList());
 
             List<Skill> dbSkills = this.skillRepository.findByIdIn(reqSkills);
-            j.setSkills(dbSkills);
+            jobInDB.setSkills(dbSkills);
         }
 
+        // check company
+        if (j.getCompany() != null) {
+            Optional<Company> COptional = this.companyRepository.findById(j.getCompany().getId());
+            if (COptional.isPresent()) {
+                jobInDB.setCompany(COptional.get());
+            }
+        }
+
+        jobInDB.setName(j.getName());
+        jobInDB.setSalary(j.getSalary());
+        jobInDB.setQuantity(j.getQuantity());
+        jobInDB.setLocation(j.getLocation());
+        jobInDB.setLevel(j.getLevel());
+        jobInDB.setStartDate(j.getStartDate());
+        jobInDB.setEndDate(j.getEndDate());
+        jobInDB.setActive(j.isActive());
         // update job
         Job currentJob = this.jobRepository.save(j);
 

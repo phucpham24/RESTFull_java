@@ -54,7 +54,7 @@ public class JobController {
             throw new IdInvalidException("Job not found");
         }
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(this.jobService.handleUpdate(reqJob));
+                .body(this.jobService.handleUpdate(reqJob, job.get()));
 
     }
 
