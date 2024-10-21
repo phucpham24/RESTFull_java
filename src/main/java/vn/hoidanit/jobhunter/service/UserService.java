@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import vn.hoidanit.jobhunter.domain.Company;
+import vn.hoidanit.jobhunter.domain.Role;
 import vn.hoidanit.jobhunter.domain.User;
 import vn.hoidanit.jobhunter.domain.response.ResCreateUserDTO;
 import vn.hoidanit.jobhunter.domain.response.ResUpdateUserDTO;
@@ -21,10 +22,12 @@ import vn.hoidanit.jobhunter.repository.UserRepository;
 public class UserService {
     private UserRepository userRepository;
     private CompanyService companyService;
+    private RoleService roleService;
 
-    public UserService(UserRepository userRepository, CompanyService companyService) {
+    public UserService(UserRepository userRepository, CompanyService companyService, RoleService roleService) {
         this.userRepository = userRepository;
         this.companyService = companyService;
+        this.roleService = roleService;
     }
 
     public User handleSaveUser(User user) {
@@ -59,18 +62,7 @@ public class UserService {
         res.setMeta(mt);
         // remove sensitive data
         List<ResUserDTO> listUser = pageUser.getContent()
-                .stream().map(item -> new ResUserDTO(
-                        item.getId(),
-                        item.getEmail(),
-                        item.getName(),
-                        item.getGender(),
-                        item.getAddress(),
-                        item.getAge(),
-                        item.getUpdatedAt(),
-                        item.getCreatedAt(),
-                        new ResUserDTO.CompanyUser(
-                                item.getCompany() != null ? item.getCompany().getId() : 0,
-                                item.getCompany() != null ? item.getCompany().getName() : null)))
+                .stream().map(item -> this.convertToUserDTO(item))
                 .collect(Collectors.toList());
 
         res.setResult(listUser);
@@ -94,6 +86,14 @@ public class UserService {
                 currentUser.setCompany(companyOp.isPresent() ? companyOp.get() : null);
 
             }
+
+            // check role
+            if (requestUser.getRole() != null) {
+                Role role = this.roleService.fetchById(requestUser.getRole().getId());
+                requestUser.setRole(role != null ? role : null);
+            }
+
+            // update user
             currentUser = this.handleSaveUser(currentUser);
         }
         return currentUser;
@@ -167,6 +167,14 @@ public class UserService {
             companyUser.setName(user.getCompany().getName());
             resUserDTO.setCompany(companyUser);
         }
+
+        ResUserDTO.RoleUser roleUser = new ResUserDTO.RoleUser();
+        if (user.getRole() != null) {
+            roleUser.setId(user.getRole().getId());
+            roleUser.setName(user.getRole().getName());
+            resUserDTO.setRole(roleUser);
+        }
+
         return resUserDTO;
     }
 
@@ -188,6 +196,12 @@ public class UserService {
             Optional<Company> companyOp = this.companyService.findCompanyById(user.getCompany().getId());
             user.setCompany(companyOp.isPresent() ? companyOp.get() : null);
 
+        }
+
+        // check role
+        if (user.getRole() != null) {
+            Role role = this.roleService.fetchById(user.getRole().getId());
+            user.setRole(role != null ? role : null);
         }
         return this.userRepository.save(user);
     }
