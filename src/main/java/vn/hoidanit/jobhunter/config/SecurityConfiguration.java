@@ -85,6 +85,7 @@ public class SecurityConfiguration {
                 "/api/v1/companies/**",
                 "/api/v1/jobs/**",
                 "api/v1/auth/register",
+                "api/v1/email/**",
         };
 
         http
