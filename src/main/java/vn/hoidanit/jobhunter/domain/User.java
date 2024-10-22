@@ -28,7 +28,7 @@ import vn.hoidanit.jobhunter.util.constant.GenderEnum;
 @Entity
 @Getter
 @Setter
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,14 +45,19 @@ public class User {
     @Enumerated(EnumType.STRING)
     private GenderEnum gender;
     private String address;
-    @Column(columnDefinition = "MIDEUMTEXT")
+
+    @Column(columnDefinition = "LONGTEXT")
     private String refreshToken;
+
     @Column(name = "created_at")
     private Instant createdAt;
+
     @Column(name = "updated_at")
     private Instant updatedAt;
+
     @Column(name = "created_by")
     private String createdBy;
+
     @Column(name = "updated_by")
     private String UpdatedBy;
 

@@ -35,7 +35,11 @@ public class PermissionController {
     public ResponseEntity<Permission> create(@Valid @RequestBody Permission p) throws IdInvalidException {
         // check exist
         if (this.permissionService.isPermissionExist(p)) {
-            throw new IdInvalidException("Permission đã tồn tại.");
+            // check name
+            if (this.permissionService.isSameName(p)) {
+                throw new IdInvalidException("Permission is existed.");
+            }
+
         }
 
         // create new permission
