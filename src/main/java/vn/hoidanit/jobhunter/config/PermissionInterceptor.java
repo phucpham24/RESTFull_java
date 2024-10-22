@@ -15,6 +15,7 @@ import vn.hoidanit.jobhunter.domain.User;
 import vn.hoidanit.jobhunter.service.UserService;
 import vn.hoidanit.jobhunter.util.SecurityUtil;
 import vn.hoidanit.jobhunter.util.error.IdInvalidException;
+import vn.hoidanit.jobhunter.util.error.PermissionException;
 
 public class PermissionInterceptor implements HandlerInterceptor {
 
@@ -50,10 +51,10 @@ public class PermissionInterceptor implements HandlerInterceptor {
                             .anyMatch(item -> item.getApiPath().equals(path) && item.getMethod().equals(httpMethod));
 
                     if (isAllow == false) {
-                        throw new IdInvalidException(">>>> do not permit to access this endpoint!");
+                        throw new PermissionException(">>>> do not permit to access this endpoint!");
                     }
                 } else {
-                    throw new IdInvalidException(">>>> do not permit to access this endpoint!");
+                    throw new PermissionException(">>>> do not permit to access this endpoint!");
                 }
             }
         }
