@@ -3429,20 +3429,20 @@ instanceKlass org/springframework/data/repository/config/SelectionSet
 instanceKlass org/springframework/data/util/StreamUtils
 instanceKlass org/springframework/data/repository/config/DefaultImplementationLookupConfiguration
 instanceKlass org/springframework/data/repository/config/NamedQueriesBeanDefinitionBuilder
-instanceKlass vn/hoidanit/jobhunter/domain/User
-instanceKlass vn/hoidanit/jobhunter/repository/UserRepository
-instanceKlass vn/hoidanit/jobhunter/domain/Subscriber
-instanceKlass vn/hoidanit/jobhunter/repository/SubscriberRepository
-instanceKlass vn/hoidanit/jobhunter/domain/Skill
-instanceKlass vn/hoidanit/jobhunter/repository/SkillRepository
-instanceKlass vn/hoidanit/jobhunter/domain/Role
-instanceKlass vn/hoidanit/jobhunter/repository/RoleRepository
-instanceKlass vn/hoidanit/jobhunter/domain/Resume
-instanceKlass vn/hoidanit/jobhunter/repository/ResumeRepository
-instanceKlass vn/hoidanit/jobhunter/domain/Permission
-instanceKlass vn/hoidanit/jobhunter/repository/PermissionRepository
-instanceKlass vn/hoidanit/jobhunter/domain/Job
-instanceKlass vn/hoidanit/jobhunter/repository/JobRepository
+instanceKlass vn/ backend/jobhunter/domain/User
+instanceKlass vn/ backend/jobhunter/repository/UserRepository
+instanceKlass vn/ backend/jobhunter/domain/Subscriber
+instanceKlass vn/ backend/jobhunter/repository/SubscriberRepository
+instanceKlass vn/ backend/jobhunter/domain/Skill
+instanceKlass vn/ backend/jobhunter/repository/SkillRepository
+instanceKlass vn/ backend/jobhunter/domain/Role
+instanceKlass vn/ backend/jobhunter/repository/RoleRepository
+instanceKlass vn/ backend/jobhunter/domain/Resume
+instanceKlass vn/ backend/jobhunter/repository/ResumeRepository
+instanceKlass vn/ backend/jobhunter/domain/Permission
+instanceKlass vn/ backend/jobhunter/repository/PermissionRepository
+instanceKlass vn/ backend/jobhunter/domain/Job
+instanceKlass vn/ backend/jobhunter/repository/JobRepository
 instanceKlass java/util/stream/Streams$2
 instanceKlass java/util/stream/Streams$ConcatSpliterator
 instanceKlass org/springframework/data/util/ReflectionUtils$DescribedFieldFilter
@@ -3453,7 +3453,7 @@ instanceKlass org/springframework/data/domain/Slice
 instanceKlass org/springframework/data/domain/Example
 instanceKlass org/springframework/data/util/ReactiveWrappers$1
 instanceKlass org/springframework/data/util/ReactiveWrappers
-instanceKlass vn/hoidanit/jobhunter/domain/Company
+instanceKlass vn/ backend/jobhunter/domain/Company
 instanceKlass org/springframework/util/ConcurrentLruCache$AddTask
 instanceKlass org/springframework/util/ConcurrentLruCache$WriteOperations
 instanceKlass org/springframework/util/ConcurrentLruCache$ReadOperations
@@ -3464,7 +3464,7 @@ instanceKlass org/springframework/data/util/TypeInformation
 instanceKlass org/springframework/data/repository/core/CrudMethods
 instanceKlass org/springframework/data/repository/core/support/AbstractRepositoryMetadata
 instanceKlass org/springframework/data/repository/core/RepositoryMetadata
-instanceKlass vn/hoidanit/jobhunter/repository/CompanyRepository
+instanceKlass vn/ backend/jobhunter/repository/CompanyRepository
 instanceKlass org/springframework/data/jpa/repository/JpaSpecificationExecutor
 instanceKlass org/springframework/data/jpa/repository/config/JpaRepositoryConfigExtension$LazyJvmAgent
 instanceKlass org/springframework/data/repository/config/DefaultRepositoryConfiguration
@@ -4161,7 +4161,7 @@ instanceKlass org/springframework/web/servlet/config/annotation/ResourceHandlerR
 instanceKlass org/springframework/web/servlet/config/annotation/ContentNegotiationConfigurer
 instanceKlass org/springframework/web/servlet/config/annotation/DefaultServletHandlerConfigurer
 instanceKlass org/springframework/web/servlet/config/annotation/InterceptorRegistry
-instanceKlass vn/hoidanit/jobhunter/config/PermissionInterceptor
+instanceKlass vn/ backend/jobhunter/config/PermissionInterceptor
 instanceKlass org/springframework/web/servlet/HandlerInterceptor
 instanceKlass org/springframework/context/annotation/BeanAnnotationHelper
 instanceKlass org/springframework/web/cors/CorsConfigurationSource
@@ -4351,44 +4351,44 @@ instanceKlass org/springframework/boot/autoconfigure/template/TemplateAvailabili
 instanceKlass org/springframework/boot/autoconfigure/validation/PrimaryDefaultValidatorPostProcessor
 instanceKlass org/springframework/boot/autoconfigure/condition/ConditionalOnResource
 instanceKlass org/springframework/boot/autoconfigure/condition/ConditionalOnThreading
-instanceKlass vn/hoidanit/jobhunter/util/SecurityUtil
-instanceKlass vn/hoidanit/jobhunter/util/FormatRestResponse
+instanceKlass vn/ backend/jobhunter/util/SecurityUtil
+instanceKlass vn/ backend/jobhunter/util/FormatRestResponse
 instanceKlass org/springframework/web/servlet/mvc/method/annotation/ResponseBodyAdvice
-instanceKlass vn/hoidanit/jobhunter/util/error/GlobalException
-instanceKlass vn/hoidanit/jobhunter/service/UserService
-instanceKlass vn/hoidanit/jobhunter/service/SubscriberService
-instanceKlass vn/hoidanit/jobhunter/service/SkillService
-instanceKlass vn/hoidanit/jobhunter/service/RoleService
-instanceKlass vn/hoidanit/jobhunter/service/ResumeService
-instanceKlass vn/hoidanit/jobhunter/service/PermissionService
-instanceKlass vn/hoidanit/jobhunter/service/JobService
-instanceKlass vn/hoidanit/jobhunter/service/FileService
-instanceKlass vn/hoidanit/jobhunter/service/EmailService
-instanceKlass vn/hoidanit/jobhunter/service/CompanyService
-instanceKlass vn/hoidanit/jobhunter/controller/UserController
-instanceKlass vn/hoidanit/jobhunter/controller/SubscriberController
-instanceKlass vn/hoidanit/jobhunter/controller/SkillController
-instanceKlass vn/hoidanit/jobhunter/controller/RoleController
-instanceKlass vn/hoidanit/jobhunter/controller/ResumeController
-instanceKlass vn/hoidanit/jobhunter/controller/PermissionController
-instanceKlass vn/hoidanit/jobhunter/controller/JobController
-instanceKlass vn/hoidanit/jobhunter/controller/HelloController
-instanceKlass vn/hoidanit/jobhunter/controller/FileController
-instanceKlass vn/hoidanit/jobhunter/controller/EmailController
-instanceKlass vn/hoidanit/jobhunter/controller/CompanyController
-instanceKlass vn/hoidanit/jobhunter/controller/AuthController
-instanceKlass vn/hoidanit/jobhunter/config/UserDetailsCustom
+instanceKlass vn/ backend/jobhunter/util/error/GlobalException
+instanceKlass vn/ backend/jobhunter/service/UserService
+instanceKlass vn/ backend/jobhunter/service/SubscriberService
+instanceKlass vn/ backend/jobhunter/service/SkillService
+instanceKlass vn/ backend/jobhunter/service/RoleService
+instanceKlass vn/ backend/jobhunter/service/ResumeService
+instanceKlass vn/ backend/jobhunter/service/PermissionService
+instanceKlass vn/ backend/jobhunter/service/JobService
+instanceKlass vn/ backend/jobhunter/service/FileService
+instanceKlass vn/ backend/jobhunter/service/EmailService
+instanceKlass vn/ backend/jobhunter/service/CompanyService
+instanceKlass vn/ backend/jobhunter/controller/UserController
+instanceKlass vn/ backend/jobhunter/controller/SubscriberController
+instanceKlass vn/ backend/jobhunter/controller/SkillController
+instanceKlass vn/ backend/jobhunter/controller/RoleController
+instanceKlass vn/ backend/jobhunter/controller/ResumeController
+instanceKlass vn/ backend/jobhunter/controller/PermissionController
+instanceKlass vn/ backend/jobhunter/controller/JobController
+instanceKlass vn/ backend/jobhunter/controller/HelloController
+instanceKlass vn/ backend/jobhunter/controller/FileController
+instanceKlass vn/ backend/jobhunter/controller/EmailController
+instanceKlass vn/ backend/jobhunter/controller/CompanyController
+instanceKlass vn/ backend/jobhunter/controller/AuthController
+instanceKlass vn/ backend/jobhunter/config/UserDetailsCustom
 instanceKlass org/springframework/security/core/userdetails/UserDetailsService
-instanceKlass vn/hoidanit/jobhunter/config/StaticResourcesWebConfiguration
-instanceKlass vn/hoidanit/jobhunter/config/SecurityConfiguration
-instanceKlass vn/hoidanit/jobhunter/config/PermissionInterceptorConfiguration
-instanceKlass vn/hoidanit/jobhunter/config/DateTimeFormatConfiguration
-instanceKlass vn/hoidanit/jobhunter/config/DatabaseInitializer
+instanceKlass vn/ backend/jobhunter/config/StaticResourcesWebConfiguration
+instanceKlass vn/ backend/jobhunter/config/SecurityConfiguration
+instanceKlass vn/ backend/jobhunter/config/PermissionInterceptorConfiguration
+instanceKlass vn/ backend/jobhunter/config/DateTimeFormatConfiguration
+instanceKlass vn/ backend/jobhunter/config/DatabaseInitializer
 instanceKlass org/springframework/boot/CommandLineRunner
 instanceKlass org/springframework/boot/Runner
-instanceKlass vn/hoidanit/jobhunter/config/CustomAuthenticationEntryPoint
+instanceKlass vn/ backend/jobhunter/config/CustomAuthenticationEntryPoint
 instanceKlass org/springframework/security/web/AuthenticationEntryPoint
-instanceKlass vn/hoidanit/jobhunter/config/CORSConfiguration
+instanceKlass vn/ backend/jobhunter/config/CORSConfiguration
 instanceKlass org/apache/coyote/UpgradeProtocol
 instanceKlass org/springframework/boot/autoconfigure/web/servlet/ServletWebServerFactoryAutoConfiguration$BeanPostProcessorsRegistrar
 instanceKlass org/springframework/boot/autoconfigure/condition/OnPropertyCondition$Spec
@@ -4789,7 +4789,7 @@ instanceKlass com/fasterxml/jackson/databind/BeanProperty
 instanceKlass org/springframework/web/bind/annotation/DeleteMapping
 instanceKlass com/fasterxml/jackson/databind/introspect/BeanPropertyDefinition
 instanceKlass com/fasterxml/jackson/databind/util/Named
-instanceKlass vn/hoidanit/jobhunter/util/annotation/ApiMessage
+instanceKlass vn/ backend/jobhunter/util/annotation/ApiMessage
 instanceKlass com/fasterxml/jackson/databind/introspect/TypeResolutionContext
 instanceKlass org/springframework/web/bind/annotation/GetMapping
 instanceKlass com/fasterxml/jackson/databind/introspect/Annotated
@@ -6040,7 +6040,7 @@ instanceKlass org/springframework/boot/logging/logback/LogbackLoggingSystem$Fact
 instanceKlass org/springframework/boot/logging/DelegatingLoggingSystemFactory
 instanceKlass org/springframework/boot/logging/LoggingSystemFactory
 instanceKlass org/springframework/boot/logging/LoggingSystem
-instanceKlass vn/hoidanit/jobhunter/JobhunterApplication
+instanceKlass vn/ backend/jobhunter/JobhunterApplication
 instanceKlass java/net/URLClassLoader$1
 instanceKlass org/springframework/boot/devtools/restart/FailureHandler
 instanceKlass org/springframework/asm/ClassVisitor
@@ -6413,7 +6413,7 @@ instanceKlass org/springframework/boot/SpringApplication
 instanceKlass java/util/zip/Checksum$1
 instanceKlass java/util/zip/CRC32
 instanceKlass java/util/zip/Checksum
-instanceKlass vn/hoidanit/jobhunter/JobhunterApplication
+instanceKlass vn/ backend/jobhunter/JobhunterApplication
 instanceKlass sun/nio/ByteBuffered
 instanceKlass java/lang/Package$VersionInfo
 instanceKlass jdk/internal/loader/Resource
@@ -7616,10 +7616,10 @@ instanceKlass org/hibernate/loader/BatchFetchStyle
 instanceKlass org/hibernate/engine/jdbc/Size$LobMultiplier
 instanceKlass org/hibernate/annotations/NotFoundAction
 instanceKlass org/hibernate/boot/model/internal/ForeignKeyType
-instanceKlass vn/hoidanit/jobhunter/util/constant/GenderEnum
-instanceKlass vn/hoidanit/jobhunter/util/constant/ResumeStateEnum
+instanceKlass vn/ backend/jobhunter/util/constant/GenderEnum
+instanceKlass vn/ backend/jobhunter/util/constant/ResumeStateEnum
 instanceKlass jakarta/persistence/EnumType
-instanceKlass vn/hoidanit/jobhunter/util/constant/GenderJobLevel
+instanceKlass vn/ backend/jobhunter/util/constant/GenderJobLevel
 instanceKlass org/hibernate/jpa/event/spi/CallbackType
 instanceKlass org/hibernate/FetchMode
 instanceKlass org/hibernate/annotations/CascadeType

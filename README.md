@@ -4,11 +4,11 @@ Template này được sử dụng cho series Java Spring Restful (dự án jobH
 ## Về tác giả
 Mọi thông tin về Tác giả Hỏi Dân IT, các bạn có thể tìm kiếm tại đây:
 
-Website chính thức: https://hoidanit.vn/
+Website chính thức: https:// backend.vn/
 
-Youtube “Hỏi Dân IT” : https://www.youtube.com/@hoidanit
+Youtube “Hỏi Dân IT” : https://www.youtube.com/@ backend
 
-Tiktok “Hỏi Dân IT” :  https://www.tiktok.com/@hoidanit
+Tiktok “Hỏi Dân IT” :  https://www.tiktok.com/@ backend
 
 Fanpage “Hỏi Dân IT” : https://www.facebook.com/askITwithERIC/
 
