@@ -58,9 +58,47 @@ authentication by spring security filter using JWT token, and save into security
     JWT expires in 1 day, so consider implementing refresh tokens for better user experience.
     Store refresh tokens securely in the database or HTTP-only cookies.
 Data interaction with DB:
-    1. using lib Hibernate and @prePersist for formating data before persisting (adding CreateAt UpdateAt with local format Date&time)
-    2. query with pagination (offset & limit receive current page and page size from front end to querry in DB) and Specification (filter by spec): [formatDTO](https://github.com/phucpham24/RESTFull_java/blob/master/src/main/java/vn/backend/jobhunter/domain/response/ResultPaginationDTO.java) and [query](https://github.com/phucpham24/RESTFull_java/blob/22fe52ba95b727c137b06ca30e3f0f4a2347e7d2/src/main/java/vn/backend/jobhunter/service/UserService.java#L49) 
+### 1. Data Persistence & Formatting
+- **Hibernate** is used for ORM, ensuring seamless database interactions.
+- `@PrePersist` annotation is implemented to automatically format data before persistence.
+- Fields such as `createdAt` and `updatedAt` are automatically generated with a localized date and time format.
+
+### 2. Query with Pagination & Filtering
+- Pagination is implemented using **offset** and **limit**, dynamically receiving the **current page** and **page size** from the frontend.
+- Uses **Spring Data JPA** to query data efficiently.
+- Filtering and sorting are implemented using **Spring Data Specifications**:
+  - [Spring Filter JPA 3.1.7](https://www.baeldung.com/rest-api-search-language-spring-data-specifications) allows dynamic filtering.
+  - **Criteria API & Predicate** enable flexible query criteria.
+  
+#### References:
+- [DTO Pagination Format](https://github.com/phucpham24/RESTFull_java/blob/master/src/main/java/vn/backend/jobhunter/domain/response/ResultPaginationDTO.java)
+- [Pagination Query Implementation](https://github.com/phucpham24/RESTFull_java/blob/22fe52ba95b727c137b06ca30e3f0f4a2347e7d2/src/main/java/vn/backend/jobhunter/service/UserService.java#L49)
+- [CriteriaBuilder Documentation](https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaBuilder.html)
+
+### 3. Custom Annotations & Messaging
+- Custom annotation `@ApiMessage` is created to manage response messages dynamically.
+- Annotations are set with specific retention policies and execution scopes.
+- The system ensures meaningful API responses by testing annotations via controller methods.
+
+#### References:
+- [Creating Custom Annotations](https://www.geeksforgeeks.org/java-retention-annotations/)
+- [Annotation Function](https://github.com/phucpham24/RESTFull_java/blob/master/src/main/java/vn/backend/jobhunter/util/annotation/ApiMessage.java)
+- [Testing Custom Annotations](https://github.com/phucpham24/RESTFull_java/blob/0978ede89499aea3907eb3cbb41adc6797b05f9a/src/main/java/vn/backend/jobhunter/controller/AuthController.java#L102)
+
+### 4. API Versioning
+- Supports **API versioning** to maintain backward compatibility.
+- Implemented via **Spring API Versioning** to manage multiple API versions effectively.
+- Allows smooth transition between API updates while maintaining legacy support.
+
+#### References:
+- [Versioning via Controller](https://github.com/phucpham24/RESTFull_java/blob/0978ede89499aea3907eb3cbb41adc6797b05f9a/src/main/java/vn/backend/jobhunter/controller/AuthController.java#L34)
+- [Spring API Versioning Library](https://github.com/lkqm/spring-api-versioning)
+
   
 5. authorisation by adding permission
 6. valid with cookie and sesion
+
+
+
+
 
