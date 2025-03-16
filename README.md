@@ -22,7 +22,7 @@ authentication by spring security filter using JWT token, and save into security
     
     2. Authenticate User
     Search for the user in the database using username.
-    Retrieve the stored hashed password from the database.
+    Retrieve the stored hashed password from the database. in [ResLoginDTO] (https://github.com/phucpham24/RESTFull_java/blob/master/src/main/java/vn/backend/jobhunter/domain/response/ResLoginDTO.java)
     Compare the hashed password with the user's input (use BCryptPasswordEncoder).
     If authentication fails, throw an AuthenticationException.
 
