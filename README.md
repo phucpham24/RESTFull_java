@@ -210,11 +210,36 @@ The project ensures structured API responses using a standardized response entit
 ---
 
 ## **Email Notification System**
-- Uses **Spring Email** for sending emails to subscribers
-- Configuration: [application.properties#L46](https://github.com/phucpham24/RESTFull_java/blob/ff6045c2cc53ab2cba20497d00a990a3cc6dff03/src/main/resources/application.properties#L46)
+- Uses **Spring Email** for sending emails to subscribers.
+- Queries job data from the database based on the skills they have subscribed to.
+- Sends formatted emails using an HTML template.
+- Asynchronous processing to optimize performance, as loading email templates with CSS takes time.
+
+## Configuration
+The email service is configured in [`application.properties`](https://github.com/phucpham24/RESTFull_java/blob/ff6045c2cc53ab2cba20497d00a990a3cc6dff03/src/main/resources/application.properties#L46).
+
+
+### Email Sending Service
+Job data is queried from the database based on the subscriber's registered skills. The data is then sent to the email service, which processes the emails asynchronously to handle template rendering efficiently. The service implementation can be found in [`EmailService.java`](https://github.com/phucpham24/RESTFull_java/blob/6d804001bdfacc98f2f8e69740082d02566022c0/src/main/java/vn/backend/jobhunter/service/EmailService.java#L63).
+
+### Email Template
+The system uses an HTML template to format job notifications. The template can be customized in [`job.html`](https://github.com/phucpham24/RESTFull_java/blob/master/src/main/resources/templates/job.html).
+
 - References:
   - [Spring Email Documentation](https://docs.spring.io/spring-framework/reference/integration/email.html)
   - [Baeldung: Sending Emails with Spring Boot](https://www.baeldung.com/spring-email)
+
+---
+
+## API Documentation with Swagger
+### Swagger Configuration
+- Allow access through Spring Security: [`SecurityConfiguration.java`](https://github.com/phucpham24/RESTFull_java/blob/6d804001bdfacc98f2f8e69740082d02566022c0/src/main/java/vn/backend/jobhunter/config/SecurityConfiguration.java#L90).
+- OpenAPI configuration template: [`OpenAPIConfig.java`](https://github.com/phucpham24/RESTFull_java/blob/master/src/main/java/vn/backend/jobhunter/config/OpenAPIConfig.java).
+
+### References
+- [SpringDoc OpenAPI Properties](https://springdoc.org/#springdoc-openapi-core-properties)
+- [Spring Boot Swagger 3 - Bezkoder](https://www.bezkoder.com/spring-boot-swagger-3/)
+- [Spring Boot Swagger with JWT - Baeldung](https://www.baeldung.com/spring-boot-swagger-jwt)
 
 ---
 
@@ -223,11 +248,14 @@ The project ensures structured API responses using a standardized response entit
 
 ---
 
+
 ## **References & External Links**
 - [CriteriaBuilder Documentation](https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaBuilder.html)
 - [Creating Custom Annotations](https://www.geeksforgeeks.org/java-retention-annotations/)
 - [Spring ResponseCookie Documentation](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseCookie.html)
 - [Refactor Cookie Handling](https://reflectoring.io/spring-boot-cookies/)
+
+
 
 
 
