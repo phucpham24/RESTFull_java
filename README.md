@@ -242,6 +242,27 @@ The system uses an HTML template to format job notifications. The template can b
 - [SpringDoc OpenAPI Properties](https://springdoc.org/#springdoc-openapi-core-properties)
 - [Spring Boot Swagger 3 - Bezkoder](https://www.bezkoder.com/spring-boot-swagger-3/)
 - [Spring Boot Swagger with JWT - Baeldung](https://www.baeldung.com/spring-boot-swagger-jwt)
+  
+---
+
+## File Upload Service
+
+- This is a simple file upload service built with Java Spring Boot. The service allows uploading files to a specific folder, ensuring that the file meets validation criteria such as file size and extensions.
+
+### Logic flow
+
+- Upload files via `multipart/form-data`
+- Save files in a structured folder hierarchy based on feature names
+- Validate uploaded files:
+  - Ensure the file is not empty
+  - Validate allowed file extensions
+  - Enforce a maximum file size of 5MB
+- Return the uploaded file name upon success
+[link](https://github.com/phucpham24/RESTFull_java/blob/6d804001bdfacc98f2f8e69740082d02566022c0/src/main/java/vn/backend/jobhunter/controller/FileController.java#L44)
+
+### References
+https://spring.io/guides/gs/uploading-files
+https://www.bezkoder.com/spring-boot-file-upload/
 
 ---
 
@@ -256,6 +277,7 @@ The system uses an HTML template to format job notifications. The template can b
 - [Creating Custom Annotations](https://www.geeksforgeeks.org/java-retention-annotations/)
 - [Spring ResponseCookie Documentation](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseCookie.html)
 - [Refactor Cookie Handling](https://reflectoring.io/spring-boot-cookies/)
+
 
 
 
