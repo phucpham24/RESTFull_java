@@ -124,7 +124,7 @@ The project ensures structured API responses using a standardized response entit
 ---
 
 ## **Data Model**
-*(Include an image or ER diagram of your database model here)*
+![Description of image](images/backend.drawio (1).png)
 
 ---
 
