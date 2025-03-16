@@ -3,6 +3,99 @@
 ## Introduction
 **JobHunter** is a job-hunting web application designed with **Domain-Driven Design (DDD)** principles. The project simulates a real-world job portal, built using **Java Spring Boot (v3.2.4)** and **MySQL** for database storage, with **Spring Security (v2.5.7)** for authentication and authorization.
 
+# Project Structure
+
+This project follows **Domain-Driven Design (DDD)** principles to ensure a clean and maintainable architecture. Below is an explanation of each folder and its purpose.
+
+## Folder Structure
+
+```
+├───config
+├───controller
+├───domain
+│   ├───request
+│   └───response
+│       ├───email
+│       ├───file
+│       ├───job
+│       └───resume
+├───repository
+├───service
+└───util
+    ├───annotation
+    ├───constant
+    └───error
+```
+
+## Folder Explanations
+
+### 1. `config/`
+- Contains configuration-related classes such as:
+  - **Spring Boot configurations** (`@Configuration` classes).
+  - **Security configurations** (e.g., JWT, OAuth).
+  - **Database configurations** (e.g., DataSource, JPA).
+  - **External API configurations** (if applicable).
+
+### 2. `controller/`
+- Contains **REST controllers** (`@RestController` or `@Controller`).
+- Exposes API endpoints that handle HTTP requests.
+- Uses **services** to process business logic.
+- Example files:
+  - `UserController.java` → Handles user-related API requests.
+  - `AuthController.java` → Manages authentication.
+
+### 3. `domain/`
+- Represents the **business domain** of the application.
+- Contains core models and logic.
+
+#### `domain/request/`
+- Holds **DTOs (Data Transfer Objects)** for incoming API requests.
+- Used for **request validation and mapping**.
+- Example:
+  - `LoginRequest.java` (handles login payloads).
+
+#### `domain/response/`
+- Stores **DTOs for API responses**.
+- Organizes response data into structured objects.
+- Subfolders categorize response types:
+  - **email/** → Response related to emails.
+  - **file/** → Response for file uploads/downloads.
+  - **job/** → Response for job-related APIs.
+  - **resume/** → Response related to resumes.
+
+### 4. `repository/`
+- Contains **JPA repositories (`@Repository`)**.
+- Interfaces extending `JpaRepository` or `CrudRepository` to interact with the database.
+- Example:
+  - `UserRepository.java` (handles user entity persistence).
+
+### 5. `service/`
+- Contains **business logic (`@Service`)**.
+- Calls repositories to fetch/save data and controllers to return responses.
+- Example:
+  - `UserService.java` → Handles user authentication and registration.
+
+### 6. `util/`
+- Contains utility/helper classes used across the project.
+
+#### `util/annotation/`
+- Custom Java **annotations** (`@interface`).
+- Example: `@CustomValidator` (for request validation).
+
+#### `util/constant/`
+- Stores **constant values** (e.g., error messages, role types).
+- Example:
+  - `ErrorMessages.java`
+  - `ApplicationConstants.java`
+
+#### `util/error/`
+- Manages error handling, including:
+  - **Custom exceptions** (`@ResponseStatus` annotations).
+  - **Global exception handlers** (`@ControllerAdvice`).
+- Example:
+  - `GlobalExceptionHandler.java`
+  - `CustomNotFoundException.java`
+
 ## Features
 - **User Authentication & Management**:
   - Login and account creation
