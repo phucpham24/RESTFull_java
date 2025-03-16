@@ -22,18 +22,19 @@ authentication by spring security filter using JWT token, and save into security
     
     2. Authenticate User
     Search for the user in the database using username.
-    Retrieve the stored hashed password from the database. in [ResLoginDTO] (https://github.com/phucpham24/RESTFull_java/blob/master/src/main/java/vn/backend/jobhunter/domain/response/ResLoginDTO.java)
+    Retrieve the stored hashed password from the database. in
+<a href="[https://github.com](https://github.com/phucpham24/RESTFull_java/blob/master/src/main/java/vn/backend/jobhunter/domain/response/ResLoginDTO.java)">ResLoginDTO</a>
     Compare the hashed password with the user's input (use BCryptPasswordEncoder).
     If authentication fails, throw an AuthenticationException.
 
-    3. Generate JWT Token
+    4. Generate JWT Token
     Use a shared secret key (HS256 or another secure algorithm).
     Store the secret key securely (e.g., environment variables, properties file).
     Use Base64 encoding for secret key storage.
     Set an expiration period (e.g., 1 day).
     Add user roles and necessary claims to the JWT payload.
 
-    4. Respond to User
+    5. Respond to User
     Create a UserDTO (Data Transfer Object).
     Exclude the password from the response.
     Return a structured response containing:
@@ -41,11 +42,11 @@ authentication by spring security filter using JWT token, and save into security
     User details (username, roles, etc.)
     Expiry time
 
-    5. Handle Exceptions Properly
+    6. Handle Exceptions Properly
     Use Global Exception Handling (@ControllerAdvice + @ExceptionHandler).
     Return meaningful HTTP status codes (e.g., 401 Unauthorized, 403 Forbidden).
 
-    6. Protect Endpoints (Excluding Login & Signup)
+    7. Protect Endpoints (Excluding Login & Signup)
     Exclude routes (/login, /register) from JWT filtering.
     Use BearerTokenAuthenticationFilter (from Nimbus OAuth2).
     Extract the Authorization: Bearer <JWT> token from request headers.
