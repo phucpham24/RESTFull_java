@@ -1,7 +1,7 @@
 # JobHunter - Job Search Platform
 
 ## Introduction
-**JobHunter** is a job-hunting web application designed with **Domain-Driven Design (DDD)** principles. The project simulates a real-world job portal, built using **Java Spring Boot (v2.3.4)** and **MySQL** for database storage, with **Spring Security (v2.5.7)** for authentication and authorization.
+**JobHunter** is a job-hunting web application designed with **Domain-Driven Design (DDD)** principles. The project simulates a real-world job portal, built using **Java Spring Boot (v3.2.4)** and **MySQL** for database storage, with **Spring Security (v2.5.7)** for authentication and authorization.
 
 ## Features
 - **User Authentication & Management**:
@@ -20,6 +20,8 @@
   - Pagination & filtering for database queries
 - **Email Notification System**:
   - Email service setup using Spring Email
+- **Cron Job (exploration)**:
+  - Cron multiple job from resources
 
 ---
 
