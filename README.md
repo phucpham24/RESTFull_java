@@ -52,7 +52,7 @@ This project follows **Domain-Driven Design (DDD)** principles to ensure a clean
 - Holds **DTOs (Data Transfer Objects)** for incoming API requests.
 - Used for **request validation and mapping**.
 - Example:
-  - `LoginRequest.java` (handles login payloads).
+  - `ResLoginDTO.java` (handles login payloads).
 
 #### `domain/response/`
 - Stores **DTOs for API responses**.
