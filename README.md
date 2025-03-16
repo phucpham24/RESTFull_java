@@ -235,6 +235,8 @@ The system uses an HTML template to format job notifications. The template can b
 ### Swagger Configuration
 - Allow access through Spring Security: [`SecurityConfiguration.java`](https://github.com/phucpham24/RESTFull_java/blob/6d804001bdfacc98f2f8e69740082d02566022c0/src/main/java/vn/backend/jobhunter/config/SecurityConfiguration.java#L90).
 - OpenAPI configuration template: [`OpenAPIConfig.java`](https://github.com/phucpham24/RESTFull_java/blob/master/src/main/java/vn/backend/jobhunter/config/OpenAPIConfig.java).
+![Description of Swagger](image/swaggerfull.png)
+![Description of Bearer token](image/bearertoken.png)
 
 ### References
 - [SpringDoc OpenAPI Properties](https://springdoc.org/#springdoc-openapi-core-properties)
