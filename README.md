@@ -122,40 +122,28 @@ If a user refreshes the page (e.g., **presses F5**):
 - The server **decodes the refresh token** and verifies the **user’s email** in the database ([SecurityUtil.java#L102](https://github.com/phucpham24/RESTFull_java/blob/581754a011de9e7cac2b4f2f2357f5c2ebae5851/src/main/java/vn/backend/jobhunter/util/SecurityUtil.java#L102)).
 - A new **access token and refresh token** are issued, and the refresh token is stored as a new **cookie**.
 
+### 5. Logout Mechanism
+When a client logs out:
+1. The client [**calls the logout API**](https://github.com/phucpham24/RESTFull_java/blob/ff6045c2cc53ab2cba20497d00a990a3cc6dff03/src/main/java/vn/backend/jobhunter/controller/AuthController.java#L175), sending the refresh token.
+2. The server:
+   - Retrieves the **user email** from the **Spring Security context**.
+   - Updates the **refresh token in the database to `null`**.
+   - Sets the refresh token **cookie to `null`**.
+3. The server responds with:
+   ```json
+   {
+       "statusCode": 200,
+       "message": "Logout User",
+       "data": null
+   }
+   ```
+DATA model ass a picture
 
-## cookie, access token and refresh token :
-  because of the short time life of access token (normally some hours to 1 day after login) , to maintain authorisation by refresh token and save the information in cookie
-  the flow: 
-  after login with Spring Security, server [create access token](https://github.com/phucpham24/RESTFull_java/blob/581754a011de9e7cac2b4f2f2357f5c2ebae5851/src/main/java/vn/backend/jobhunter/controller/AuthController.java#L77) there are 2 part:         [subject](https://github.com/phucpham24/RESTFull_java/blob/581754a011de9e7cac2b4f2f2357f5c2ebae5851/src/main/java/vn/backend/jobhunter/util/SecurityUtil.java#L67) (sub): user email to ensure the unique
-        [claim](https://github.com/phucpham24/RESTFull_java/blob/581754a011de9e7cac2b4f2f2357f5c2ebae5851/src/main/java/vn/backend/jobhunter/util/SecurityUtil.java#L68): description of token
-  then add it in user info(name, email, id)  in [ResLoginDTO](https://github.com/phucpham24/RESTFull_java/blob/master/src/main/java/vn/backend/jobhunter/domain/response/ResLoginDTO.java) response to client
- for the purpose of access token does not exist for a long time so [create refresh token](https://github.com/phucpham24/RESTFull_java/blob/581754a011de9e7cac2b4f2f2357f5c2ebae5851/src/main/java/vn/backend/jobhunter/controller/AuthController.java#L82) content user email and update to
- user in DB with experation period is 100 days and refresh token will not be lost by closing browser like session setting and [set to cookie to client](https://github.com/phucpham24/RESTFull_java/blob/581754a011de9e7cac2b4f2f2357f5c2ebae5851/src/main/java/vn/backend/jobhunter/controller/AuthController.java#L87)
-ref: [refactor cookie](https://reflectoring.io/spring-boot-cookies/)
-[response cookie](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseCookie.html)
+## sending email to subscriber
+setup for spring email (https://github.com/phucpham24/RESTFull_java/blob/ff6045c2cc53ab2cba20497d00a990a3cc6dff03/src/main/resources/application.properties#L46)
 
-decode access token: to access orther API have to sent access token on header (bearer token) so [decoder](https://github.com/phucpham24/RESTFull_java/blob/581754a011de9e7cac2b4f2f2357f5c2ebae5851/src/main/java/vn/backend/jobhunter/config/SecurityConfiguration.java#L42) will be runned firstly to decode access token then go into [authority](https://github.com/phucpham24/RESTFull_java/blob/581754a011de9e7cac2b4f2f2357f5c2ebae5851/src/main/java/vn/backend/jobhunter/config/SecurityConfiguration.java#L66) to set role for user
-
-in case, refresh page by client (eg: press f5): 
-    firstly, client call API endpoint and send bearer token on header, in case access token is expired so error response status code 401(unauthorized) (meaning no access token or expired token)
-    when recieving 401 code, client will use refresh token to renew (refresh token , access token)
-so client will send JWT on header to server by [API](https://github.com/phucpham24/RESTFull_java/blob/581754a011de9e7cac2b4f2f2357f5c2ebae5851/src/main/java/vn/backend/jobhunter/controller/AuthController.java#L119) then server will [decode refresh token](https://github.com/phucpham24/RESTFull_java/blob/581754a011de9e7cac2b4f2f2357f5c2ebae5851/src/main/java/vn/backend/jobhunter/util/SecurityUtil.java#L102) and check user's email in DB correspond to that refresh token to identify which user login and issue a new refresh token and set the cookie with new refresh token
-
-log out 
-5. authorisation by adding permission
-6. valid with cookie and sesion
-
-# Java Spring Boot Backend - Authentication System
-
-## Overview
-This project is a backend application built with **Java Spring Boot**, implementing authentication and authorization using **JWT access tokens and refresh tokens**. The system ensures secure user authentication while maintaining session persistence using cookies.
-
-## Features
-- **Spring Security Authentication** with JWT tokens
-- **Access Token** for short-term authorization
-- **Refresh Token** stored in cookies for session persistence
-- **Token Validation and Renewal**
-- **Role-based Access Control (RBAC)**
+ref: https://docs.spring.io/spring-framework/reference/integration/email.html
+https://www.baeldung.com/spring-email
 
 
 
